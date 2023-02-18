@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=Inter:wght@400;500;700&family=Oswald:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
+  </head>
+  <body>
+    <form onsubmit="pay()" action="#">
+      <img src="./Logo.png" alt="qotoq" style="width: 15rem" />
+      <h1>Oyma-oy to'lash tizimda ro'yxatdan o'ting</h1>
+      <input type="text" placeholder="Ism" required />
+      <input type="text" placeholder="Familiya" required />
+      <input
+        type="email"
+        required
+        id="mail"
+        placeholder="Email"
+        oninvalid="invalidInput(event)"
+      />
+      <input
+        id="phone"
+        type="tel"
+        oninvalid="process(event)"
+        pattern="[0-9]{9}"
+        placeholder="Telefon nomer"
+        required
+      />
+
+      <div class="alert alert-error alert-info" style="display: none"></div>
+      <div id="check">
+        <p>
+          Ro’yhatdan o’tish orqali siz <a href="#">ommaviy ofertaga</a> rozi
+          bo’lgan hisoblanasiz
+        </p>
+      </div>
+
+      <input id="submit" type="submit" value="Kartadan to'lash" />
+    </form>
+    <script src="./index.js"></script>
+    <script>
+      const phoneInputField = document.querySelector("#phone");
+      const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "uz",
+        preferredCountries: ["uz", "ru", "us", "kz"],
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
+      const info = document.querySelector(".alert-info");
+
+      function process(event) {
+        event.preventDefault();
+
+        const phoneNumber = phoneInput.getNumber();
+
+        info.style.display = "";
+        info.innerHTML = `9 ta raqam kiriting: <strong>991234567</strong>`;
+      }
+    </script>
+  </body>
+</html>
